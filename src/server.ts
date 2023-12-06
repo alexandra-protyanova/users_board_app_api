@@ -11,7 +11,7 @@ const app = express()
   .use(cors({ origin: process.env.CLIENT_ORIGIN }));
 
 app.use('/users', userRouter);
-app.use('./colors', colorRouter);
+app.use('/colors', colorRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello world!');
