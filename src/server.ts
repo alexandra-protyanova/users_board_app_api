@@ -1,15 +1,15 @@
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import * as userController from './constrollers/user.controller';
 import * as colorsController from './constrollers/color.controller';
 
-const PORT = 8000;
-const CLIENT_ORIGIN = 'http://localhost:3000';
+dotenv.config();
 
 const app = express();
 
 app.use(cors({
-  origin: CLIENT_ORIGIN,
+  origin: process.env.CLIENT_ORIGIN,
 }));
 
 app.get('/', (req, res) => {
@@ -24,6 +24,6 @@ app.post('/users', express.json(), userController.create);
 
 app.get('/colors', colorsController.getAll);
 
-app.listen(PORT, () => {
-  console.log(`🚀🚀🚀 Server is running on http://localhost:${PORT} 🚀🚀🚀`)
+app.listen(process.env.PORT, () => {
+  console.log(`🚀🚀🚀 Server is running on http://localhost:${process.env.PORT} 🚀🚀🚀`)
 });
