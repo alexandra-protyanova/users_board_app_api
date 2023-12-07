@@ -3,8 +3,11 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { userRouter } from './routes/user.routes';
 import { colorRouter } from './routes/color.routes';
-
 dotenv.config();
+
+import { connect } from './utils/initDb';
+
+connect();
 
 const app = express()
   .use(express.json())

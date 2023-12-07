@@ -1,33 +1,19 @@
-import { User } from "../types";
+import { User } from "../models";
 
-const usersFromServer = [
-  { id: 1, name: 'Joe Biden', carColorId: 5 },
-  { id: 2, name: 'Elon Musk', carColorId: 4 },
-  { id: 3, name: 'Pan Roman', carColorId: 2 },
-];
+export const findAll = async () => User.findAll();
 
-export const findAll = (): User[] => usersFromServer;
-
-export const getById = (id: number): User | null => (
-  usersFromServer.find(u => u.id === id) || null
+export const getById = async (id: number): Promise<User | null> => (
+  User.findByPk(id)
 );
 
-export const createOne = ({ name, carColorId }: Omit<User, 'id'>): User => {
-  const newUser = {
-    name,
-    carColorId,
-    id: getMaxId(usersFromServer) + 1,
-  };
-
-  usersFromServer.push(newUser);
-
-  return newUser;
-};
-
-export const getMaxId = (users: User[]) => (
-  Math.max(...users.map(u => u.id)) || 0
+export const createOne = async (
+  { name, carColorId }: Pick<User, 'name' | 'carColorId'>
+): Promise<User> => (
+  User.create({  name, carColorId })
 );
 
-export const validate = ({ name, carColorId } : Omit<User, 'id'>) => {
+export const validate = (
+  { name, carColorId } : Pick<User, 'name' | 'carColorId'>
+) => {
   return typeof name === 'string' && typeof carColorId === 'number'
 };

@@ -1,16 +1,16 @@
 import { ControllerAction } from "../types";
 import * as userService from '../services/user.service';
 
-export const getAll: ControllerAction = (req, res) => {
-  const users = userService.findAll();
+export const getAll: ControllerAction = async (req, res) => {
+  const users = await userService.findAll();
 
   res.send(users);
 };
 
-export const getOne: ControllerAction = (req, res) => {
+export const getOne: ControllerAction = async (req, res) => {
   const { userId } = req.params;
 
-  const user = userService.getById(+userId);
+  const user = await userService.getById(+userId);
 
   if (!user) {
     res.sendStatus(404);
@@ -21,7 +21,7 @@ export const getOne: ControllerAction = (req, res) => {
   res.send(user);
 };
 
-export const create: ControllerAction = (req, res) => {
+export const create: ControllerAction = async (req, res) => {
   const { name, carColorId } = req.body;
 
   if (!userService.validate({ name, carColorId })) {
@@ -30,7 +30,7 @@ export const create: ControllerAction = (req, res) => {
     return;
   }
 
-  const newUser = userService.createOne({ name, carColorId });
+  const newUser = await userService.createOne({ name, carColorId });
 
   res.send(newUser);
 };
