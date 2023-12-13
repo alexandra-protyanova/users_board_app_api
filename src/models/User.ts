@@ -15,6 +15,8 @@ export class User extends Model {
   name: string;
 
   @ForeignKey(() => Color)
-  @Column
+  @Column({
+    field: 'car_color_id',
+  })
   carColorId: number;
 }
