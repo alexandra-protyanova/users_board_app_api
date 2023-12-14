@@ -3,6 +3,12 @@ import { User, Color } from '../models';
 
 export const sequelize = new Sequelize(process.env.DB_URI ?? '', {
   models: [User, Color],
+  dialectOptions: {
+    ssl: {
+      rejectUnauthorized: false,
+      require: true,
+    },
+  },
 });
 
 export const connect = async () => {
