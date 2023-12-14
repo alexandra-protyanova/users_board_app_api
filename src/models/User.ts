@@ -4,6 +4,7 @@ import { Color } from './Color';
 @Table({
   tableName: 'users',
   timestamps: false,
+  paranoid: true,
 })
 export class User extends Model {
   @PrimaryKey
