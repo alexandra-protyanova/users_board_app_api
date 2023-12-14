@@ -3,6 +3,7 @@ import { Table, Column, Model, Unique } from 'sequelize-typescript';
 @Table({
   tableName: 'colors',
   timestamps: false,
+  paranoid: true,
 })
 export class Color extends Model {
   @Unique
